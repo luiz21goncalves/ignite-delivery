@@ -6,6 +6,7 @@
   "author": "Luiz Gonçalves <luizhbgoncalves@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "@prisma/client": "3.8.1",
     "express": "^4.17.2"
   },
   "devDependencies": {
