@@ -8,25 +8,41 @@ datasource db {
 }
 
 model Deliveryman {
-  id         String   @id
+  id         String       @id
   name       String
-  username   String   @unique
-  email      String   @unique
+  username   String       @unique
+  email      String       @unique
   password   String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt()
+  created_at DateTime     @default(now())
+  updated_at DateTime     @updatedAt
+  deliveries Deliveries[]
 
   @@map("deliveryman")
 }
 
 model User {
-  id         String   @id
+  id         String       @id
   name       String
-  username   String   @unique
-  email      String   @unique
+  username   String       @unique
+  email      String       @unique
   password   String
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt()
+  created_at DateTime     @default(now())
+  updated_at DateTime     @updatedAt
+  deliveries Deliveries[]
 
   @@map("users")
+}
+
+model Deliveries {
+  id             String       @id
+  item_name      String
+  user_id        String
+  user           User         @relation(fields: [user_id], references: [id])
+  deliveryman_id String?
+  deliveryman    Deliveryman? @relation(fields: [deliveryman_id], references: [id])
+  status         String
+  created_at     DateTime     @default(now())
+  updated_at     DateTime     @updatedAt
+
+  @@map("deliveries")
 }
