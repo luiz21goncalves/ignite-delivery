@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Luiz Gonçalves <luizhbgoncalves@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "tsnd --exit-child --transpile-only --ignore-watch node_modules src/server.ts"
+  },
   "dependencies": {
     "@prisma/client": "3.8.1",
     "cors": "^2.8.5",
