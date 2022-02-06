@@ -7,7 +7,9 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsnd --exit-child --transpile-only --ignore-watch node_modules src/server.ts",
-    "test": "jest"
+    "test": "yarn test:unit && yarn test:integration",
+    "test:integration": "jest --projects ./test",
+    "test:unit": "jest"
   },
   "dependencies": {
     "@prisma/client": "3.8.1",
