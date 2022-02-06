@@ -1,14 +1,14 @@
 import { InMemoryUsersRepository } from '../../repositories/in-memory/InMemoryUsersRepository'
-import { CreateClientError } from './CreateClientError'
-import { CreateClientUseCase } from './CreateClientUseCase'
+import { CreateUserError } from './CreateUserError'
+import { CreateUserUseCase } from './CreateUserUseCase'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
-let sut: CreateClientUseCase
+let sut: CreateUserUseCase
 
-describe('CreateClientUseCase', () => {
+describe('CreateUserUseCase', () => {
   beforeEach(() => {
     inMemoryUsersRepository = new InMemoryUsersRepository()
-    sut = new CreateClientUseCase(inMemoryUsersRepository)
+    sut = new CreateUserUseCase(inMemoryUsersRepository)
   })
 
   it('should be able to create a new client', async () => {
@@ -45,7 +45,7 @@ describe('CreateClientUseCase', () => {
         username: 'jonny_doe',
         password: 'strong_password'
       })
-    ).rejects.toEqual(new CreateClientError.EmailInUse())
+    ).rejects.toEqual(new CreateUserError.EmailInUse())
   })
 
   it('should not be able to create new user with email same another even with sensitive case', async () => {
@@ -63,7 +63,7 @@ describe('CreateClientUseCase', () => {
         username: 'jonny_doe',
         password: 'strong_password'
       })
-    ).rejects.toEqual(new CreateClientError.EmailInUse())
+    ).rejects.toEqual(new CreateUserError.EmailInUse())
   })
 
   it('should not be able to create new user with user same another', async () => {
@@ -81,7 +81,7 @@ describe('CreateClientUseCase', () => {
         username: 'duplicate_username',
         password: 'strong_password'
       })
-    ).rejects.toEqual(new CreateClientError.UsernameInUse())
+    ).rejects.toEqual(new CreateUserError.UsernameInUse())
   })
 
   it('should not be able to create new user with username same another even with sensitive case', async () => {
@@ -99,6 +99,6 @@ describe('CreateClientUseCase', () => {
         username: 'Duplicate_Username',
         password: 'strong_password'
       })
-    ).rejects.toEqual(new CreateClientError.UsernameInUse())
+    ).rejects.toEqual(new CreateUserError.UsernameInUse())
   })
 })

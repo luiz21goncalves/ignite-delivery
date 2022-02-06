@@ -1,13 +1,13 @@
 import { Router } from 'express'
 
-import { CreateClientController } from '../modules/clients/useCases/createClient/CreateClientController'
+import { CreateUserController } from '../modules/users/useCases/createUser/CreateUserController'
 
 const routes = Router()
 
-const createClientController = new CreateClientController()
+const createUserController = new CreateUserController()
 
 routes.get('/', (_, response) => response.json({ message: 'Hello World' }))
 
-routes.post('/users', createClientController.handle)
+routes.post('/users', createUserController.handle)
 
 export { routes }

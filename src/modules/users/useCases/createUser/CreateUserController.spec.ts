@@ -6,12 +6,12 @@ import supertest from 'supertest'
 
 import { app } from '../../../../app'
 import { prismaUsersRepository } from '../../repositories/implementations/PrismaUsersRepository'
-import { CreateClientError } from './CreateClientError'
-import { CreateClientUseCase } from './CreateClientUseCase'
+import { CreateUserError } from './CreateUserError'
+import { CreateUserUseCase } from './CreateUserUseCase'
 
-const createClientUseCase = new CreateClientUseCase(prismaUsersRepository)
+const createUserUseCase = new CreateUserUseCase(prismaUsersRepository)
 
-describe('CreateClientController', () => {
+describe('CreateUserController', () => {
   it('should be able to create new client', async () => {
     const { body, statusCode } = await supertest(app).post('/users').send({
       name: 'John Doe',
@@ -33,7 +33,7 @@ describe('CreateClientController', () => {
   })
 
   it('should not be able to create new client with email sabe another', async () => {
-    await createClientUseCase.execute({
+    await createUserUseCase.execute({
       name: 'Charlotte Koelpin',
       email: 'Duplicate@email.com',
       username: 'charlotte.koelpin',
@@ -48,11 +48,11 @@ describe('CreateClientController', () => {
     })
 
     expect(statusCode).toEqual(400)
-    expect(body).toMatchObject(new CreateClientError.EmailInUse())
+    expect(body).toMatchObject(new CreateUserError.EmailInUse())
   })
 
   it('should not be able to create new client with username sabe another', async () => {
-    await createClientUseCase.execute({
+    await createUserUseCase.execute({
       name: 'Maia Wuckert',
       email: 'main.wuckert@email.com',
       username: 'duplicate',
@@ -67,6 +67,6 @@ describe('CreateClientController', () => {
     })
 
     expect(statusCode).toEqual(400)
-    expect(body).toMatchObject(new CreateClientError.UsernameInUse())
+    expect(body).toMatchObject(new CreateUserError.UsernameInUse())
   })
 })

@@ -1,14 +1,14 @@
 import { Request, Response } from 'express'
 import { prismaUsersRepository } from '../../repositories/implementations/PrismaUsersRepository'
-import { CreateClientUseCase } from './CreateClientUseCase'
+import { CreateUserUseCase } from './CreateUserUseCase'
 
-export class CreateClientController {
+export class CreateUserController {
   async handle (request: Request, response: Response): Promise<Response> {
     const { name, email, username, password } = request.body
 
-    const createClientUseCase = new CreateClientUseCase(prismaUsersRepository)
+    const createUserUseCase = new CreateUserUseCase(prismaUsersRepository)
 
-    const user = await createClientUseCase.execute({
+    const user = await createUserUseCase.execute({
       name,
       email,
       username,

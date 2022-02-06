@@ -3,22 +3,22 @@ import { hash } from 'bcrypt'
 import { ICreateUserDTO } from '../../dtos/ICreateUserDTO'
 import { User } from '../../dtos/User'
 import { IUsersRepository } from '../../repositories/IUsersRepository'
-import { CreateClientError } from './CreateClientError'
+import { CreateUserError } from './CreateUserError'
 
-export class CreateClientUseCase {
+export class CreateUserUseCase {
   constructor (private userRepository: IUsersRepository) {}
 
   async execute ({ name, username, email, password }: ICreateUserDTO): Promise<Omit<User, 'password'>> {
     const foundUserByEmail = await this.userRepository.findByEmail(email)
 
     if (foundUserByEmail) {
-      throw new CreateClientError.EmailInUse()
+      throw new CreateUserError.EmailInUse()
     }
 
     const foundUserByUserName = await this.userRepository.findByUsername(username)
 
     if (foundUserByUserName) {
-      throw new CreateClientError.UsernameInUse()
+      throw new CreateUserError.UsernameInUse()
     }
 
     const hashPassword = await hash(password, 10)
