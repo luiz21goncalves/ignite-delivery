@@ -3,6 +3,7 @@ import { hash } from 'bcrypt'
 import { ICreateUserDTO } from '../../dtos/ICreateUserDTO'
 import { User } from '../../dtos/User'
 import { IUsersRepository } from '../../repositories/IUsersRepository'
+import { CreateClientError } from './CreateClientError'
 
 export class CreateClientUseCase {
   constructor (private userRepository: IUsersRepository) {}
@@ -11,13 +12,13 @@ export class CreateClientUseCase {
     const foundUserByEmail = await this.userRepository.findByEmail(email)
 
     if (foundUserByEmail) {
-      throw new Error('Email already in use.')
+      throw new CreateClientError.EmailInUse()
     }
 
     const foundUserByUserName = await this.userRepository.findByUsername(username)
 
     if (foundUserByUserName) {
-      throw new Error('Username already in use.')
+      throw new CreateClientError.UsernameInUse()
     }
 
     const hashPassword = await hash(password, 10)

@@ -1,4 +1,5 @@
 import { InMemoryUsersRepository } from '../../repositories/in-memory/InMemoryUsersRepository'
+import { CreateClientError } from './CreateClientError'
 import { CreateClientUseCase } from './CreateClientUseCase'
 
 let inMemoryUsersRepository: InMemoryUsersRepository
@@ -44,7 +45,7 @@ describe('CreateClientUseCase', () => {
         username: 'jonny_doe',
         password: 'strong_password'
       })
-    ).rejects.toEqual(new Error('Email already in use.'))
+    ).rejects.toEqual(new CreateClientError.EmailInUse())
   })
 
   it('should not be able to create new user with email same another even with sensitive case', async () => {
@@ -62,7 +63,7 @@ describe('CreateClientUseCase', () => {
         username: 'jonny_doe',
         password: 'strong_password'
       })
-    ).rejects.toEqual(new Error('Email already in use.'))
+    ).rejects.toEqual(new CreateClientError.EmailInUse())
   })
 
   it('should not be able to create new user with user same another', async () => {
@@ -80,7 +81,7 @@ describe('CreateClientUseCase', () => {
         username: 'duplicate_username',
         password: 'strong_password'
       })
-    ).rejects.toEqual(new Error('Username already in use.'))
+    ).rejects.toEqual(new CreateClientError.UsernameInUse())
   })
 
   it('should not be able to create new user with username same another even with sensitive case', async () => {
@@ -98,6 +99,6 @@ describe('CreateClientUseCase', () => {
         username: 'Duplicate_Username',
         password: 'strong_password'
       })
-    ).rejects.toEqual(new Error('Username already in use.'))
+    ).rejects.toEqual(new CreateClientError.UsernameInUse())
   })
 })
