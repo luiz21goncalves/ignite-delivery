@@ -1,12 +1,14 @@
-import { hash } from 'bcrypt'
-
+import { IHashProvider } from '../../../../providers/HashProvider/dtos/IHashProvider'
 import { ICreateUserDTO } from '../../dtos/ICreateUserDTO'
 import { User } from '../../dtos/User'
 import { IUsersRepository } from '../../repositories/IUsersRepository'
 import { CreateUserError } from './CreateUserError'
 
 export class CreateUserUseCase {
-  constructor (private userRepository: IUsersRepository) {}
+  constructor (
+    private userRepository: IUsersRepository,
+    private hashProvider: IHashProvider
+  ) {}
 
   async execute ({ name, username, email, password }: ICreateUserDTO): Promise<Omit<User, 'password'>> {
     const foundUserByEmail = await this.userRepository.findByEmail(email)
@@ -21,7 +23,7 @@ export class CreateUserUseCase {
       throw new CreateUserError.UsernameInUse()
     }
 
-    const hashPassword = await hash(password, 10)
+    const hashPassword = await this.hashProvider.generateHash(password)
 
     const user = await this.userRepository.create({
       name,

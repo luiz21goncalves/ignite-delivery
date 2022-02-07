@@ -5,11 +5,15 @@
 import supertest from 'supertest'
 
 import { app } from '../../../../app'
+import { bcryptHashProvider } from '../../../../providers/HashProvider/implementations/BCryptHashProvider'
 import { prismaUsersRepository } from '../../repositories/implementations/PrismaUsersRepository'
 import { CreateUserError } from './CreateUserError'
 import { CreateUserUseCase } from './CreateUserUseCase'
 
-const createUserUseCase = new CreateUserUseCase(prismaUsersRepository)
+const createUserUseCase = new CreateUserUseCase(
+  prismaUsersRepository,
+  bcryptHashProvider
+)
 
 describe('CreateUserController', () => {
   it('should be able to create new client', async () => {
