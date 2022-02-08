@@ -1,6 +1,6 @@
 {
   "name": "ignite-delivery-api",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Delevery API",
   "main": "index.js",
   "author": "Luiz Gonçalves <luizhbgoncalves@gmail.com>",
