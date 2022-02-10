@@ -5,4 +5,6 @@ export type IUsersRepository = {
   create(data: ICreateUserDTO): Promise<User>;
   findByEmail(email: string): Promise<User | null>;
   findByUsername(username: string): Promise<User | null>;
+  findByEmailWithSensitiveCase(email: string): Promise<User | null>;
+  findByUsernameWithSensitiveCase(username: string): Promise<User | null>;
 };

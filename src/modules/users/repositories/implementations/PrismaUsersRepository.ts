@@ -12,7 +12,7 @@ class PrismaUsersRepository implements IUsersRepository {
     username,
     password,
   }: ICreateUserDTO): Promise<User> {
-    return await prisma.user.create({
+    return prisma.user.create({
       data: {
         id: randomUUID(),
         name,
@@ -24,7 +24,7 @@ class PrismaUsersRepository implements IUsersRepository {
   }
 
   async findByEmail(email: string): Promise<User | null> {
-    return await prisma.user.findFirst({
+    return prisma.user.findFirst({
       where: {
         email: {
           mode: 'insensitive',
@@ -35,12 +35,30 @@ class PrismaUsersRepository implements IUsersRepository {
   }
 
   async findByUsername(username: string): Promise<User | null> {
-    return await prisma.user.findFirst({
+    return prisma.user.findFirst({
       where: {
         username: {
           mode: 'insensitive',
           equals: username,
         },
+      },
+    });
+  }
+
+  async findByEmailWithSensitiveCase(email: string): Promise<User | null> {
+    return prisma.user.findFirst({
+      where: {
+        email,
+      },
+    });
+  }
+
+  async findByUsernameWithSensitiveCase(
+    username: string,
+  ): Promise<User | null> {
+    return prisma.user.findFirst({
+      where: {
+        username,
       },
     });
   }

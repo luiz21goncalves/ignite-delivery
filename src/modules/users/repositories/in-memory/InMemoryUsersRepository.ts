@@ -47,4 +47,18 @@ export class InMemoryUsersRepository implements IUsersRepository {
 
     return user || null;
   }
+
+  async findByEmailWithSensitiveCase(email: string): Promise<User | null> {
+    const user = this.users.find((findUser) => findUser.email === email);
+
+    return user || null;
+  }
+
+  async findByUsernameWithSensitiveCase(
+    username: string,
+  ): Promise<User | null> {
+    const user = this.users.find((findUser) => findUser.username === username);
+
+    return user || null;
+  }
 }
