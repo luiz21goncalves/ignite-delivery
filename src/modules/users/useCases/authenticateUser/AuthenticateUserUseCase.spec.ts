@@ -26,7 +26,7 @@ describe('AuthenticateUserUseCase', () => {
 
   it('should be able to authenticate user with email', async () => {
     const response = await sut.execute({
-      emailOrUsername: 'bernice.terry@email.com',
+      email_or_username: 'bernice.terry@email.com',
       password: 'password',
     });
 
@@ -46,7 +46,7 @@ describe('AuthenticateUserUseCase', () => {
 
   it('should be able to authenticate user with username', async () => {
     const response = await sut.execute({
-      emailOrUsername: 'bernice_terry',
+      email_or_username: 'bernice_terry',
       password: 'password',
     });
 
@@ -67,7 +67,7 @@ describe('AuthenticateUserUseCase', () => {
   it('should not be able to authenticate user not found by username', async () => {
     await expect(
       sut.execute({
-        emailOrUsername: 'missouri_farrell',
+        email_or_username: 'missouri_farrell',
         password: 'password',
       }),
     ).rejects.toEqual(new AuthenticateUserError());
@@ -76,7 +76,7 @@ describe('AuthenticateUserUseCase', () => {
   it('should not be able to authenticate user not found by email', async () => {
     await expect(
       sut.execute({
-        emailOrUsername: 'sedrick_corwin96@hotmail.com',
+        email_or_username: 'sedrick_corwin96@hotmail.com',
         password: 'password',
       }),
     ).rejects.toEqual(new AuthenticateUserError());
@@ -85,7 +85,7 @@ describe('AuthenticateUserUseCase', () => {
   it('should not be able to authenticate user by email with incorrect case', async () => {
     await expect(
       sut.execute({
-        emailOrUsername: 'Bernice.Terry@email.com',
+        email_or_username: 'Bernice.Terry@email.com',
         password: 'password',
       }),
     ).rejects.toEqual(new AuthenticateUserError());
@@ -94,7 +94,7 @@ describe('AuthenticateUserUseCase', () => {
   it('should not be able to authenticate user by username with incorrect case', async () => {
     await expect(
       sut.execute({
-        emailOrUsername: 'Bernice_Terry',
+        email_or_username: 'Bernice_Terry',
         password: 'password',
       }),
     ).rejects.toEqual(new AuthenticateUserError());
@@ -103,14 +103,14 @@ describe('AuthenticateUserUseCase', () => {
   it('should not be able to authenticate user with wrong password', async () => {
     await expect(
       sut.execute({
-        emailOrUsername: 'bernice.terry@email.com',
+        email_or_username: 'bernice.terry@email.com',
         password: 'wrong-password',
       }),
     ).rejects.toEqual(new AuthenticateUserError());
 
     await expect(
       sut.execute({
-        emailOrUsername: 'bernice_terry',
+        email_or_username: 'bernice_terry',
         password: 'wrong-password',
       }),
     ).rejects.toEqual(new AuthenticateUserError());

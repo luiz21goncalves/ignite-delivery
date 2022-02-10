@@ -20,11 +20,11 @@ export class AuthenticateUserUseCase {
   ) {}
 
   async execute({
-    emailOrUsername,
+    email_or_username,
     password,
   }: IAuthenticateUserDTO): Promise<AuthenticateResponse> {
     const isUsername = Boolean(
-      Joi.string().email().validate(emailOrUsername).error,
+      Joi.string().email().validate(email_or_username).error,
     );
     const isEmail = !isUsername;
 
@@ -32,13 +32,13 @@ export class AuthenticateUserUseCase {
 
     if (isEmail) {
       user = await this.usersRepository.findByEmailWithSensitiveCase(
-        emailOrUsername,
+        email_or_username,
       );
     }
 
     if (isUsername) {
       user = await this.usersRepository.findByUsernameWithSensitiveCase(
-        emailOrUsername,
+        email_or_username,
       );
     }
 

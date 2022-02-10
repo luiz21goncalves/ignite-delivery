@@ -1,4 +1,4 @@
 export type IAuthenticateUserDTO = {
   password: string;
-  emailOrUsername: string;
+  email_or_username: string;
 };
