@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'path';
 
 export default {
   rootDir: path.resolve(__dirname),
@@ -12,7 +12,5 @@ export default {
   coverageReporters: ['text-summary', 'lcov'],
   preset: 'ts-jest',
   testEnvironment: 'node',
-  testMatch: [
-    '**/*UseCase.spec.ts'
-  ]
-}
+  testMatch: ['**/*UseCase.spec.ts'],
+};

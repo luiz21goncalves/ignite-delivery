@@ -1,24 +1,25 @@
-import { Request, Response } from 'express'
-import { bcryptHashProvider } from '../../../../providers/HashProvider/implementations/BCryptHashProvider'
-import { prismaUsersRepository } from '../../repositories/implementations/PrismaUsersRepository'
-import { CreateUserUseCase } from './CreateUserUseCase'
+import { Request, Response } from 'express';
+
+import { bcryptHashProvider } from '../../../../providers/HashProvider/implementations/BCryptHashProvider';
+import { prismaUsersRepository } from '../../repositories/implementations/PrismaUsersRepository';
+import { CreateUserUseCase } from './CreateUserUseCase';
 
 export class CreateUserController {
-  async handle (request: Request, response: Response): Promise<Response> {
-    const { name, email, username, password } = request.body
+  async handle(request: Request, response: Response): Promise<Response> {
+    const { name, email, username, password } = request.body;
 
     const createUserUseCase = new CreateUserUseCase(
       prismaUsersRepository,
-      bcryptHashProvider
-    )
+      bcryptHashProvider,
+    );
 
     const user = await createUserUseCase.execute({
       name,
       email,
       username,
-      password
-    })
+      password,
+    });
 
-    return response.status(201).json(user)
+    return response.status(201).json(user);
   }
 }

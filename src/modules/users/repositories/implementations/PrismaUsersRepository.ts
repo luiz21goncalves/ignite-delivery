@@ -1,49 +1,49 @@
-import { User } from '@prisma/client'
-import { prisma } from '../../../../database/prismaClient'
-import { ICreateUserDTO } from '../../dtos/ICreateUserDTO'
-import { IUsersRepository } from '../IUsersRepository'
-import { randomUUID } from 'crypto'
+import { User } from '@prisma/client';
+import { randomUUID } from 'crypto';
+
+import { prisma } from '../../../../database/prismaClient';
+import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
+import { IUsersRepository } from '../IUsersRepository';
 
 class PrismaUsersRepository implements IUsersRepository {
-  async create ({ name, email, username, password }: ICreateUserDTO): Promise<User> {
-    const user = await prisma.user.create({
+  async create({
+    name,
+    email,
+    username,
+    password,
+  }: ICreateUserDTO): Promise<User> {
+    return await prisma.user.create({
       data: {
         id: randomUUID(),
         name,
         email,
         username,
-        password
-      }
-    })
-
-    return user
+        password,
+      },
+    });
   }
 
-  async findByEmail (email: string): Promise<User | null> {
-    const user = await prisma.user.findFirst({
+  async findByEmail(email: string): Promise<User | null> {
+    return await prisma.user.findFirst({
       where: {
         email: {
           mode: 'insensitive',
-          equals: email
-        }
-      }
-    })
-
-    return user
+          equals: email,
+        },
+      },
+    });
   }
 
-  async findByUsername (username: string): Promise<User | null> {
-    const user = await prisma.user.findFirst({
+  async findByUsername(username: string): Promise<User | null> {
+    return await prisma.user.findFirst({
       where: {
         username: {
           mode: 'insensitive',
-          equals: username
-        }
-      }
-    })
-
-    return user
+          equals: username,
+        },
+      },
+    });
   }
 }
 
-export const prismaUsersRepository = new PrismaUsersRepository()
+export const prismaUsersRepository = new PrismaUsersRepository();

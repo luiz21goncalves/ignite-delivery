@@ -1,36 +1,43 @@
-import { IHashProvider } from '../../../../providers/HashProvider/dtos/IHashProvider'
-import { ICreateUserDTO } from '../../dtos/ICreateUserDTO'
-import { User } from '../../dtos/User'
-import { IUsersRepository } from '../../repositories/IUsersRepository'
-import { CreateUserError } from './CreateUserError'
+import { IHashProvider } from '../../../../providers/HashProvider/dtos/IHashProvider';
+import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
+import { User } from '../../dtos/User';
+import { IUsersRepository } from '../../repositories/IUsersRepository';
+import { CreateUserError } from './CreateUserError';
 
 export class CreateUserUseCase {
-  constructor (
+  constructor(
     private userRepository: IUsersRepository,
-    private hashProvider: IHashProvider
+    private hashProvider: IHashProvider,
   ) {}
 
-  async execute ({ name, username, email, password }: ICreateUserDTO): Promise<Omit<User, 'password'>> {
-    const foundUserByEmail = await this.userRepository.findByEmail(email)
+  async execute({
+    name,
+    username,
+    email,
+    password,
+  }: ICreateUserDTO): Promise<Omit<User, 'password'>> {
+    const foundUserByEmail = await this.userRepository.findByEmail(email);
 
     if (foundUserByEmail) {
-      throw new CreateUserError.EmailInUse()
+      throw new CreateUserError.EmailInUse();
     }
 
-    const foundUserByUserName = await this.userRepository.findByUsername(username)
+    const foundUserByUserName = await this.userRepository.findByUsername(
+      username,
+    );
 
     if (foundUserByUserName) {
-      throw new CreateUserError.UsernameInUse()
+      throw new CreateUserError.UsernameInUse();
     }
 
-    const hashPassword = await this.hashProvider.generateHash(password)
+    const hashPassword = await this.hashProvider.generateHash(password);
 
     const user = await this.userRepository.create({
       name,
       username,
       email,
-      password: hashPassword
-    })
+      password: hashPassword,
+    });
 
     return {
       id: user.id,
@@ -38,7 +45,7 @@ export class CreateUserUseCase {
       email: user.email,
       username: user.username,
       created_at: user.created_at,
-      updated_at: user.updated_at
-    }
+      updated_at: user.updated_at,
+    };
   }
 }

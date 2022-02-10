@@ -1,17 +1,22 @@
-import { randomUUID } from 'crypto'
+import { randomUUID } from 'crypto';
 
-import { ICreateUserDTO } from '../../dtos/ICreateUserDTO'
-import { User } from '../../dtos/User'
-import { IUsersRepository } from '../IUsersRepository'
+import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
+import { User } from '../../dtos/User';
+import { IUsersRepository } from '../IUsersRepository';
 
 export class InMemoryUsersRepository implements IUsersRepository {
-  private users: User[]
+  private users: User[];
 
-  constructor () {
-    this.users = []
+  constructor() {
+    this.users = [];
   }
 
-  async create ({ name, password, email, username }: ICreateUserDTO): Promise<User> {
+  async create({
+    name,
+    password,
+    email,
+    username,
+  }: ICreateUserDTO): Promise<User> {
     const user = {
       id: randomUUID(),
       name,
@@ -19,23 +24,27 @@ export class InMemoryUsersRepository implements IUsersRepository {
       password,
       username,
       created_at: new Date(),
-      updated_at: new Date()
-    }
+      updated_at: new Date(),
+    };
 
-    this.users.push(user)
+    this.users.push(user);
 
-    return user
+    return user;
   }
 
-  async findByEmail (email: string): Promise<User | null> {
-    const user = this.users.find(findUser => findUser.email.toLowerCase() === email.toLowerCase())
+  async findByEmail(email: string): Promise<User | null> {
+    const user = this.users.find(
+      (findUser) => findUser.email.toLowerCase() === email.toLowerCase(),
+    );
 
-    return user || null
+    return user || null;
   }
 
-  async findByUsername (username: string): Promise<User | null> {
-    const user = this.users.find(findUser => findUser.username.toLowerCase() === username.toLowerCase())
+  async findByUsername(username: string): Promise<User | null> {
+    const user = this.users.find(
+      (findUser) => findUser.username.toLowerCase() === username.toLowerCase(),
+    );
 
-    return user || null
+    return user || null;
   }
 }
