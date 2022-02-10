@@ -13,4 +13,5 @@ export default {
   preset: 'ts-jest',
   testEnvironment: 'node',
   testMatch: ['**/*UseCase.spec.ts'],
+  setupFiles: ['dotenv/config'],
 };
