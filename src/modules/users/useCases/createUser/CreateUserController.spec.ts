@@ -73,4 +73,21 @@ describe('CreateUserController', () => {
     expect(statusCode).toEqual(400);
     expect(body).toMatchObject(new CreateUserError.UsernameInUse());
   });
+
+  it('should not be able to create user with invalid fields', async () => {
+    const { body, statusCode } = await supertest(app).post('/users').send({
+      email: 'nikita.kuvalis@email.com',
+      password: 'strong_password',
+    });
+
+    expect(statusCode).toEqual(400);
+    expect(body).toMatchObject({
+      statusCode: 400,
+      key: 'validation.failed',
+      messages: [
+        { error: '"name" is required', field: 'name' },
+        { error: '"username" is required', field: 'username' },
+      ],
+    });
+  });
 });

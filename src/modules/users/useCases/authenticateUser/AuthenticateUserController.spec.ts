@@ -87,4 +87,24 @@ describe('AuthenticateUserController', () => {
       message: 'Email/username or password invalid!',
     });
   });
+
+  it('should not be able to authenticate user with invalid fields', async () => {
+    const { body, statusCode } = await supertest(app).post('/session').send({
+      email: 'dahlia.barton@eamil.com',
+      password: 'password',
+    });
+
+    expect(statusCode).toEqual(400);
+    expect(body).toMatchObject({
+      statusCode: 400,
+      key: 'validation.failed',
+      messages: [
+        {
+          error: '"email_or_username" is required',
+          field: 'email_or_username',
+        },
+        { error: '"email" is not allowed', field: 'email' },
+      ],
+    });
+  });
 });
