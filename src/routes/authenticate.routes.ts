@@ -8,7 +8,7 @@ const authenticateRoutes = Router();
 const authenticateUserCotroller = new AuthenticateUserCotroller();
 
 authenticateRoutes.post(
-  '/session',
+  'users/session',
   validationWhenAutenticateUser,
   authenticateUserCotroller.handle,
 );

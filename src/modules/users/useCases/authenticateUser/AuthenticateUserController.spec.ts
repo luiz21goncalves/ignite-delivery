@@ -21,10 +21,12 @@ describe('AuthenticateUserController', () => {
   });
 
   it('should be able to authenticate user with email', async () => {
-    const { body, statusCode } = await supertest(app).post('/session').send({
-      email_or_username: 'dahlia.barton@eamil.com',
-      password: 'password',
-    });
+    const { body, statusCode } = await supertest(app)
+      .post('/users/session')
+      .send({
+        email_or_username: 'dahlia.barton@eamil.com',
+        password: 'password',
+      });
 
     expect(statusCode).toEqual(200);
     expect(body.user).not.toHaveProperty('password');
@@ -42,10 +44,12 @@ describe('AuthenticateUserController', () => {
   });
 
   it('should be able to authenticate user with username', async () => {
-    const { body, statusCode } = await supertest(app).post('/session').send({
-      email_or_username: 'dahlia.barton',
-      password: 'password',
-    });
+    const { body, statusCode } = await supertest(app)
+      .post('/users/session')
+      .send({
+        email_or_username: 'dahlia.barton',
+        password: 'password',
+      });
 
     expect(statusCode).toEqual(200);
     expect(body.user).not.toHaveProperty('password');
@@ -63,10 +67,12 @@ describe('AuthenticateUserController', () => {
   });
 
   it('should not be able to authenticate user with wrong password', async () => {
-    const { body, statusCode } = await supertest(app).post('/session').send({
-      email_or_username: 'dahlia.barton',
-      password: 'wrong-password',
-    });
+    const { body, statusCode } = await supertest(app)
+      .post('/users/session')
+      .send({
+        email_or_username: 'dahlia.barton',
+        password: 'wrong-password',
+      });
 
     expect(statusCode).toEqual(401);
     expect(body).toMatchObject({
@@ -76,10 +82,12 @@ describe('AuthenticateUserController', () => {
   });
 
   it('should not be able to authenticate when there is no user', async () => {
-    const { body, statusCode } = await supertest(app).post('/session').send({
-      email_or_username: 'montana_wyman48',
-      password: 'wrong-password',
-    });
+    const { body, statusCode } = await supertest(app)
+      .post('/users/session')
+      .send({
+        email_or_username: 'montana_wyman48',
+        password: 'wrong-password',
+      });
 
     expect(statusCode).toEqual(401);
     expect(body).toMatchObject({
@@ -89,10 +97,12 @@ describe('AuthenticateUserController', () => {
   });
 
   it('should not be able to authenticate user with invalid fields', async () => {
-    const { body, statusCode } = await supertest(app).post('/session').send({
-      email: 'dahlia.barton@eamil.com',
-      password: 'password',
-    });
+    const { body, statusCode } = await supertest(app)
+      .post('/users/session')
+      .send({
+        email: 'dahlia.barton@eamil.com',
+        password: 'password',
+      });
 
     expect(statusCode).toEqual(400);
     expect(body).toMatchObject({
