@@ -103,6 +103,43 @@
             "format": "date-time"
           }
         }
+      },
+      "validation_failed": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number",
+            "default": 400
+          },
+          "key": {
+            "type": "string"
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "string"
+                },
+                "field": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      },
+      "app_error": {
+        "type": "object",
+        "properties": {
+          "statusCode": {
+            "type": "number"
+          },
+          "messages": {
+            "type": "string"
+          }
+        }
       }
     }
   }
