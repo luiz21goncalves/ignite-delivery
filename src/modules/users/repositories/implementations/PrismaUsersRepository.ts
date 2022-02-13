@@ -1,9 +1,9 @@
-import { User } from '@prisma/client';
 import { randomUUID } from 'crypto';
 
 import { prisma } from '../../../../database/prismaClient';
 import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
 import { IUsersRepository } from '../IUsersRepository';
+import { User } from '../../dtos/User';
 
 class PrismaUsersRepository implements IUsersRepository {
   async create({
@@ -19,6 +19,14 @@ class PrismaUsersRepository implements IUsersRepository {
         email,
         username,
         password,
+      },
+    });
+  }
+
+  async findById(id: string): Promise<User | null> {
+    return prisma.user.findUnique({
+      where: {
+        id,
       },
     });
   }
