@@ -42,45 +42,9 @@
         }
       }
     },
-    "/session": {
-      "post": {
-        "tags": ["Session"],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/authenticate_fields"
-              }
-            }
-          }
-        },
-        "responses": {
-          "400": {
-            "description": "Validation Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/validation_failed"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Incorrect credentials",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/app_error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/users": {
       "post": {
-        "tags": ["Users"],
+        "tags": ["User"],
         "requestBody": {
           "content": {
             "application/json": {
@@ -107,6 +71,42 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/validation_failed"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/users/session": {
+      "post": {
+        "tags": ["User"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/authenticate_fields"
+              }
+            }
+          }
+        },
+        "responses": {
+          "400": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/validation_failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/app_error"
                 }
               }
             }
