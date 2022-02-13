@@ -221,6 +221,52 @@
           }
         }
       }
+    },
+    "/deliveries": {
+      "post": {
+        "tags": ["Delivery"],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/create_delivery"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/delivery"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/validation_failed"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/app_error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -269,6 +315,25 @@
           },
           "password": {
             "type": "string"
+          }
+        }
+      },
+      "create_delivery": {
+        "type": "object",
+        "properties": {
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "item_name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "deliveryman_id": {
+            "type": "string",
+            "format": "uuid"
           }
         }
       },
@@ -321,6 +386,37 @@
           },
           "password": {
             "type": "string"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        }
+      },
+      "delivery": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "user_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "item_name": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "deliveryman_id": {
+            "type": "string",
+            "format": "uuid"
           },
           "created_at": {
             "type": "string",
