@@ -32,6 +32,14 @@ export class InMemoryDeliverymansRepository implements IDeliverymansRepository {
     return deliveryman;
   }
 
+  async findById(id: string): Promise<Deliveryman | null> {
+    const deliveryman = this.deliverymans.find(
+      (findUser) => findUser.id === id,
+    );
+
+    return deliveryman || null;
+  }
+
   async findByEmail(email: string): Promise<Deliveryman | null> {
     const deliveryman = this.deliverymans.find(
       (findUser) => findUser.email.toLowerCase() === email.toLowerCase(),

@@ -23,6 +23,14 @@ class PrismaDeliverymansRepository implements IDeliverymansRepository {
     });
   }
 
+  async findById(id: string): Promise<Deliveryman | null> {
+    return prisma.deliveryman.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
+
   async findByEmail(email: string): Promise<Deliveryman | null> {
     return prisma.deliveryman.findFirst({
       where: {
