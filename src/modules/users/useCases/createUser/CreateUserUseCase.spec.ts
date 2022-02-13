@@ -14,7 +14,7 @@ describe('CreateUserUseCase', () => {
     sut = new CreateUserUseCase(inMemoryUsersRepository, inMemoryHashProvider);
   });
 
-  it('should be able to create a new client', async () => {
+  it('should be able to create a new user', async () => {
     const user = await sut.execute({
       name: 'John Doe',
       email: 'john.doe@email.com',

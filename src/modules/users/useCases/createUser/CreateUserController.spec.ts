@@ -16,7 +16,7 @@ const createUserUseCase = new CreateUserUseCase(
 );
 
 describe('CreateUserController', () => {
-  it('should be able to create new client', async () => {
+  it('should be able to create new user', async () => {
     const { body, statusCode } = await supertest(app).post('/users').send({
       name: 'John Doe',
       email: 'john.doe@email.com',
@@ -36,7 +36,7 @@ describe('CreateUserController', () => {
     });
   });
 
-  it('should not be able to create new client with email sabe another', async () => {
+  it('should not be able to create new user with email sabe another', async () => {
     await createUserUseCase.execute({
       name: 'Charlotte Koelpin',
       email: 'Duplicate@email.com',
@@ -55,7 +55,7 @@ describe('CreateUserController', () => {
     expect(body).toMatchObject(new CreateUserError.EmailInUse());
   });
 
-  it('should not be able to create new client with username sabe another', async () => {
+  it('should not be able to create new user with username sabe another', async () => {
     await createUserUseCase.execute({
       name: 'Maia Wuckert',
       email: 'main.wuckert@email.com',

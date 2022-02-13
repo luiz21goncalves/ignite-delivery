@@ -3,7 +3,7 @@ import { Router } from 'express';
 import { CreateUserController } from '../modules/users/useCases/createUser/CreateUserController';
 import { validationWhenCreateUser } from '../modules/users/useCases/createUser/validation';
 import { AuthenticateUserCotroller } from '../modules/users/useCases/authenticateUser/AuthenticateUserController';
-import { validationWhenAutenticateUser } from '../modules/users/useCases/authenticateUser/validation';
+import { validationWhenAuthenticateUser } from '../modules/users/useCases/authenticateUser/validation';
 
 const userRoutes = Router();
 const authenticateUserCotroller = new AuthenticateUserCotroller();
@@ -13,7 +13,7 @@ userRoutes.post('/', validationWhenCreateUser, createUserController.handle);
 
 userRoutes.post(
   '/session',
-  validationWhenAutenticateUser,
+  validationWhenAuthenticateUser,
   authenticateUserCotroller.handle,
 );
 

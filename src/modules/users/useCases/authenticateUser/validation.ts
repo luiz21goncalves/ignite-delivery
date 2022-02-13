@@ -1,6 +1,6 @@
 import { celebrate, Joi, Segments } from 'celebrate';
 
-export const validationWhenAutenticateUser = celebrate(
+export const validationWhenAuthenticateUser = celebrate(
   {
     [Segments.BODY]: {
       password: Joi.string().required(),
