@@ -8,8 +8,8 @@
   "scripts": {
     "dev": "tsnd --exit-child --transpile-only --ignore-watch node_modules src/server.ts",
     "test": "yarn test:unit && yarn test:integration",
-    "test:integration": "jest --projects ./test",
-    "test:unit": "jest",
+    "test:integration": "jest --setupFiles dotenv/config --projects ./test",
+    "test:unit": "jest --setupFiles dotenv/config",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
