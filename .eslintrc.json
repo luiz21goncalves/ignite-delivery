@@ -1,3 +1,7 @@
 {
-  "extends": ["@lukemorales"]
+  "extends": ["@lukemorales"],
+  "rules": {
+    "@typescript-eslint/no-namespace": "off",
+    "max-classes-per-file": "off"
+  }
 }
