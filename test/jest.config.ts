@@ -12,6 +12,7 @@ export default {
     '!<rootDir>/src/providers/**/dtos/*.ts',
     '!<rootDir>/src/providers/**/in-memory/*.ts',
     '!<rootDir>/**/*.spec.ts',
+    '!<rootDir>/src/@types/**',
   ],
   coverageDirectory: 'coverage/integration',
   testMatch: ['**/*Controller.spec.ts'],
