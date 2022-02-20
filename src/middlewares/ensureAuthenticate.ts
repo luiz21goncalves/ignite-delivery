@@ -32,7 +32,6 @@ export async function ensureAuthenticate(
 
     return next();
   } catch (err) {
-    console.error(err);
     throw new AuthenticationError.InvalidToken();
   }
 }
