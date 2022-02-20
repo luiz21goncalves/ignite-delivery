@@ -5,7 +5,6 @@ export const validationWhenCreateDelivery = celebrate(
     [Segments.BODY]: {
       item_name: Joi.string().required(),
       status: Joi.string().required(),
-      user_id: Joi.string().required(),
       deliveryman_id: Joi.string().optional(),
     },
   },

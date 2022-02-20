@@ -7,7 +7,8 @@ import { CreateDeliveryUseCase } from './CreateDeliveryUseCase';
 
 export class CreateDeliveryController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { item_name, status, user_id, deliveryman_id } = request.body;
+    const { item_name, status, deliveryman_id } = request.body;
+    const user_id = request.user.id;
 
     const createDeliveryUseCase = new CreateDeliveryUseCase(
       prismaDeliveriesRepository,
