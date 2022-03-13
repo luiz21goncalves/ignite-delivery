@@ -55,10 +55,10 @@ export class AuthenticateUserUseCase {
       throw new AuthenticateUserError();
     }
 
-    const { expiresIn, secret } = jwt;
-    const token = sign({}, secret, {
+    const { CLIENT_SECRET, CLIENT_EXPIRES_IN } = jwt;
+    const token = sign({}, CLIENT_SECRET, {
       subject: user.id,
-      expiresIn,
+      expiresIn: CLIENT_EXPIRES_IN,
     });
 
     return {

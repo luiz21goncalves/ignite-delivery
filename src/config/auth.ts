@@ -1,4 +1,6 @@
 export const jwt = {
-  secret: String(process.env.APP_SECRET),
-  expiresIn: String(process.env.EXPIRES_IN),
+  CLIENT_SECRET: process.env.CLIENT_SECRET,
+  CLIENT_EXPIRES_IN: process.env.CLIENT_EXPIRES_IN,
+  DELIVERYMAN_SECRET: process.env.DELIVERYMAN_SECRET,
+  DELIVERYMAN_EXPIRES_IN: process.env.DELIVERYMAN_EXPIRES_IN,
 };

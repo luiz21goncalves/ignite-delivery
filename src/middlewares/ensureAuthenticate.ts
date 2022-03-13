@@ -26,7 +26,7 @@ export async function ensureAuthenticate(
   }
 
   try {
-    const { sub } = verify(token, jwt.secret) as IPayload;
+    const { sub } = verify(token, jwt.CLIENT_SECRET) as IPayload;
 
     request.user = { id: sub };
 

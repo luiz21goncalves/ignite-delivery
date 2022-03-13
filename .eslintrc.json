@@ -2,6 +2,7 @@
   "extends": ["@lukemorales"],
   "rules": {
     "@typescript-eslint/no-namespace": "off",
-    "max-classes-per-file": "off"
+    "max-classes-per-file": "off",
+    "no-param-reassign": "warn"
   }
 }

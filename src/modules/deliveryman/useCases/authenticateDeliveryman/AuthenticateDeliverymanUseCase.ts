@@ -55,10 +55,10 @@ export class AuthenticateDeliverymanUseCase {
       throw new AuthenticateDeliverymanError();
     }
 
-    const { expiresIn, secret } = jwt;
-    const token = sign({}, secret, {
+    const { DELIVERYMAN_SECRET, DELIVERYMAN_EXPIRES_IN } = jwt;
+    const token = sign({}, DELIVERYMAN_SECRET, {
       subject: deliveryman.id,
-      expiresIn,
+      expiresIn: DELIVERYMAN_EXPIRES_IN,
     });
 
     return {
