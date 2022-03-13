@@ -6,6 +6,7 @@ import supertest from 'supertest';
 import { app } from '../../../../app';
 import { AuthenticationError } from '../../../../errors/AuthenticationError';
 import { bcryptHashProvider } from '../../../../providers/HashProvider/implementations/BCryptHashProvider';
+import { Deliveryman } from '../../../deliveryman/dtos/Deliveryman';
 import { prismaDeliverymansRepository } from '../../../deliveryman/repositories/implementations/PrismaDeliverymansRepository';
 import { AuthenticateDeliverymanUseCase } from '../../../deliveryman/useCases/authenticateDeliveryman/AuthenticateDeliverymanUseCase';
 import { User } from '../../../users/dtos/User';
@@ -14,6 +15,7 @@ import { prismaDeliveriesRepository } from '../../repositories/implementations/P
 
 let user: User;
 let deliveryman_token: string;
+let deliveryman: Deliveryman;
 
 describe('FindAllDeliveriesReceivedController', () => {
   beforeAll(async () => {
@@ -26,7 +28,7 @@ describe('FindAllDeliveriesReceivedController', () => {
       password,
     });
 
-    await prismaDeliverymansRepository.create({
+    deliveryman = await prismaDeliverymansRepository.create({
       name: 'Ignacio Stamm',
       email: 'ignacio.stam@email.com',
       username: 'ignacio_stam',
@@ -39,7 +41,7 @@ describe('FindAllDeliveriesReceivedController', () => {
     );
 
     const { token } = await authenticateDeliverymanUseCase.execute({
-      email_or_username: 'ignacio.stam@email.com',
+      email_or_username: deliveryman.email,
       password: '_kaUS9gNA_aij3d',
     });
 
@@ -57,6 +59,7 @@ describe('FindAllDeliveriesReceivedController', () => {
       item_name: 'Unbranded Cotton Tuna',
       status: 'received',
       user_id: user.id,
+      deliveryman_id: deliveryman.id,
     });
 
     await prismaDeliveriesRepository.create({
@@ -78,16 +81,11 @@ describe('FindAllDeliveriesReceivedController', () => {
       });
 
     expect(statusCode).toEqual(200);
-    expect(body).toHaveLength(2);
+    expect(body).toHaveLength(1);
     expect(body).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
           item_name: 'Handmade Granite Computer',
-          status: 'received',
-          user_id: user.id,
-        }),
-        expect.objectContaining({
-          item_name: 'Unbranded Cotton Tuna',
           status: 'received',
           user_id: user.id,
         }),

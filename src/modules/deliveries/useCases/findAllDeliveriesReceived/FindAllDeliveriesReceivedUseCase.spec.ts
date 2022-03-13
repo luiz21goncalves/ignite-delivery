@@ -15,14 +15,12 @@ describe('FindAllDeliveriesReceivedUseCase', () => {
       item_name: 'Handmade Granite Computer',
       status: 'received',
       user_id: 'user_id',
-      deliveryman_id: 'deliveryman_id',
     });
 
     await inMemoryDeliveriesRepository.create({
       item_name: 'Unbranded Cotton Tuna',
       status: 'received',
       user_id: 'user_id',
-      deliveryman_id: 'deliveryman_id',
     });
 
     await inMemoryDeliveriesRepository.create({
@@ -48,13 +46,11 @@ describe('FindAllDeliveriesReceivedUseCase', () => {
           item_name: 'Handmade Granite Computer',
           status: 'received',
           user_id: 'user_id',
-          deliveryman_id: 'deliveryman_id',
         }),
         expect.objectContaining({
           item_name: 'Unbranded Cotton Tuna',
           status: 'received',
           user_id: 'user_id',
-          deliveryman_id: 'deliveryman_id',
         }),
       ]),
     );

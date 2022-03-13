@@ -29,6 +29,9 @@ class PrismaDeliveriesRepository implements IDeliveriesRepository {
         status: {
           equals: 'received',
         },
+        deliveryman_id: {
+          equals: null,
+        },
       },
     });
   }

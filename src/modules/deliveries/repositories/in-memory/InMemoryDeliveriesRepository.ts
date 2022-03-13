@@ -33,6 +33,9 @@ export class InMemoryDeliveriesRepository implements IDeliveriesRepository {
   }
 
   async findAllReceived(): Promise<Delivery[]> {
-    return this.deliveryes.filter((delivery) => delivery.status === 'received');
+    return this.deliveryes.filter(
+      (delivery) =>
+        delivery.status === 'received' && delivery.deliveryman_id === null,
+    );
   }
 }
