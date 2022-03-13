@@ -268,6 +268,34 @@
           }
         }
       }
+    },
+    "/deliveries/received": {
+      "get": {
+        "tags": ["Delivery"],
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/delivery"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Incorrect credentials",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/app_error"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
