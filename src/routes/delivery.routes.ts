@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { ensureAuthenticate } from '../middlewares/ensureAuthenticate';
+import { ensureAuthenticateClient } from '../middlewares/ensureAuthenticateClient';
 import { CreateDeliveryController } from '../modules/deliveries/useCases/createDelivery/CreateDeliveryController';
 import { validationWhenCreateDelivery } from '../modules/deliveries/useCases/createDelivery/validation';
 import { FindAllDeliveriesReceivedController } from '../modules/deliveries/useCases/findAllDeliveriesReceived/FindAllDeliveriesReceivedController';
@@ -14,7 +14,7 @@ deliveryRoutes.get('/received', findAllDeliveriesReceivedController.handle);
 
 deliveryRoutes.post(
   '/',
-  ensureAuthenticate,
+  ensureAuthenticateClient,
   validationWhenCreateDelivery,
   createDeliveryController.handle,
 );

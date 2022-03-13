@@ -8,7 +8,7 @@ type IPayload = {
   sub: string;
 };
 
-export async function ensureAuthenticate(
+export async function ensureAuthenticateClient(
   request: Request,
   response: Response,
   next: NextFunction,
