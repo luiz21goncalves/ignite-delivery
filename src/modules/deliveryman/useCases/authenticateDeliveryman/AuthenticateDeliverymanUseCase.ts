@@ -15,7 +15,7 @@ type AuthenticateDeliverymanResponse = {
 
 export class AuthenticateDeliverymanUseCase {
   constructor(
-    private usersRepository: IDeliverymansRepository,
+    private deliverymansRepository: IDeliverymansRepository,
     private hashProvider: IHashProvider,
   ) {}
 
@@ -31,13 +31,13 @@ export class AuthenticateDeliverymanUseCase {
     let deliveryman: Deliveryman | null = null;
 
     if (isEmail) {
-      deliveryman = await this.usersRepository.findByEmailWithSensitiveCase(
+      deliveryman = await this.deliverymansRepository.findByEmailWithSensitiveCase(
         email_or_username,
       );
     }
 
     if (isUsername) {
-      deliveryman = await this.usersRepository.findByUsernameWithSensitiveCase(
+      deliveryman = await this.deliverymansRepository.findByUsernameWithSensitiveCase(
         email_or_username,
       );
     }
