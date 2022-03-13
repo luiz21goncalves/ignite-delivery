@@ -322,14 +322,7 @@
       "create_delivery": {
         "type": "object",
         "properties": {
-          "user_id": {
-            "type": "string",
-            "format": "uuid"
-          },
           "item_name": {
-            "type": "string"
-          },
-          "status": {
             "type": "string"
           },
           "deliveryman_id": {

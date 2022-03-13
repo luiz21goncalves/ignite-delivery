@@ -7,7 +7,7 @@ import { CreateDeliveryUseCase } from './CreateDeliveryUseCase';
 
 export class CreateDeliveryController {
   async handle(request: Request, response: Response): Promise<Response> {
-    const { item_name, status, deliveryman_id } = request.body;
+    const { item_name, deliveryman_id } = request.body;
     const user_id = request.user.id;
 
     const createDeliveryUseCase = new CreateDeliveryUseCase(
@@ -18,7 +18,7 @@ export class CreateDeliveryController {
 
     const delivery = await createDeliveryUseCase.execute({
       item_name,
-      status,
+      status: 'received',
       user_id,
       deliveryman_id,
     });
