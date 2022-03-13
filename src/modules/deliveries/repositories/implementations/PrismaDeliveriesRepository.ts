@@ -22,6 +22,16 @@ class PrismaDeliveriesRepository implements IDeliveriesRepository {
       },
     });
   }
+
+  async findAllReceived(): Promise<Delivery[]> {
+    return prisma.deliveries.findMany({
+      where: {
+        status: {
+          equals: 'received',
+        },
+      },
+    });
+  }
 }
 
 export const prismaDeliveriesRepository = new PrismaDeliveriesRepository();
