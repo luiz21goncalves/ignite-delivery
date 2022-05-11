@@ -1,3 +1,12 @@
-import { Deliveryman as PrismaDeliveryman } from '@prisma/client/index';
+import { Delivery } from '../../deliveries/dtos/Delivery';
 
-export type Deliveryman = PrismaDeliveryman;
+export type Deliveryman = {
+  id: string;
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+  created_at: Date;
+  updated_at: Date;
+  deliveries?: Delivery[];
+};

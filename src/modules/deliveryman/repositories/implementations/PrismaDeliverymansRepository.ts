@@ -1,6 +1,7 @@
 import { randomUUID } from 'crypto';
 
 import { prisma } from '../../../../database/prismaClient';
+import { DeliverymanDelivery } from '../../dtos/DeliverimanDelivery';
 import { Deliveryman } from '../../dtos/Deliveryman';
 import { ICreateDeleverymanDTO } from '../../dtos/ICreateDeleverymanDTO';
 import { IDeliverymansRepository } from '../IDeliverymansRepository';
@@ -27,6 +28,22 @@ class PrismaDeliverymansRepository implements IDeliverymansRepository {
     return prisma.deliveryman.findUnique({
       where: {
         id,
+      },
+    });
+  }
+
+  async findByIdWithDeliveries(
+    id: string,
+  ): Promise<DeliverymanDelivery | null> {
+    return prisma.deliveryman.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        name: true,
+        email: true,
+        deliveries: true,
       },
     });
   }

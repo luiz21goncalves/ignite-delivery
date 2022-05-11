@@ -1,5 +1,6 @@
 import { randomUUID } from 'crypto';
 
+import { DeliverymanDelivery } from '../../dtos/DeliverimanDelivery';
 import { Deliveryman } from '../../dtos/Deliveryman';
 import { ICreateDeleverymanDTO } from '../../dtos/ICreateDeleverymanDTO';
 import { IDeliverymansRepository } from '../IDeliverymansRepository';
@@ -38,6 +39,25 @@ export class InMemoryDeliverymansRepository implements IDeliverymansRepository {
     );
 
     return deliveryman || null;
+  }
+
+  async findByIdWithDeliveries(
+    id: string,
+  ): Promise<DeliverymanDelivery | null> {
+    const deliveryman = this.deliverymans.find(
+      (findDeliveryman) => findDeliveryman.id === id,
+    );
+
+    const formattedUser = deliveryman
+      ? {
+          id: deliveryman.id,
+          name: deliveryman.name,
+          email: deliveryman.email,
+          deliveries: deliveryman.deliveries || [],
+        }
+      : null;
+
+    return formattedUser || null;
   }
 
   async findByEmail(email: string): Promise<Deliveryman | null> {
