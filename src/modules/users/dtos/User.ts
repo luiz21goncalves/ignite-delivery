@@ -1,3 +1,12 @@
-import { User as PrismaUser } from '@prisma/client/index';
+import { Delivery } from '../../deliveries/dtos/Delivery';
 
-export type User = PrismaUser;
+export type User = {
+  id: string;
+  name: string;
+  username: string;
+  email: string;
+  password: string;
+  created_at: Date;
+  updated_at: Date;
+  deliveries?: Delivery[];
+};

@@ -4,6 +4,7 @@ import { prisma } from '../../../../database/prismaClient';
 import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
 import { IUsersRepository } from '../IUsersRepository';
 import { User } from '../../dtos/User';
+import { UserDelivery } from '../../dtos/UserDelivery';
 
 class PrismaUsersRepository implements IUsersRepository {
   async create({
@@ -27,6 +28,20 @@ class PrismaUsersRepository implements IUsersRepository {
     return prisma.user.findUnique({
       where: {
         id,
+      },
+    });
+  }
+
+  async findByIdWithDeliveries(id: string): Promise<UserDelivery | null> {
+    return prisma.user.findUnique({
+      where: {
+        id,
+      },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        deliveries: true,
       },
     });
   }

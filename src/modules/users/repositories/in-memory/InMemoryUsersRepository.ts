@@ -2,6 +2,7 @@ import { randomUUID } from 'crypto';
 
 import { ICreateUserDTO } from '../../dtos/ICreateUserDTO';
 import { User } from '../../dtos/User';
+import { UserDelivery } from '../../dtos/UserDelivery';
 import { IUsersRepository } from '../IUsersRepository';
 
 export class InMemoryUsersRepository implements IUsersRepository {
@@ -25,6 +26,7 @@ export class InMemoryUsersRepository implements IUsersRepository {
       username,
       created_at: new Date(),
       updated_at: new Date(),
+      deliveries: [],
     };
 
     this.users.push(user);
@@ -36,6 +38,21 @@ export class InMemoryUsersRepository implements IUsersRepository {
     const user = this.users.find((findUser) => findUser.id === id);
 
     return user || null;
+  }
+
+  async findByIdWithDeliveries(id: string): Promise<UserDelivery | null> {
+    const user = this.users.find((findUser) => findUser.id === id);
+
+    const formattedUser = user
+      ? {
+          id: user.id,
+          name: user.name,
+          email: user.email,
+          deliveries: user.deliveries || [],
+        }
+      : null;
+
+    return formattedUser || null;
   }
 
   async findByEmail(email: string): Promise<User | null> {
