@@ -35,6 +35,43 @@ class PrismaDeliveriesRepository implements IDeliveriesRepository {
       },
     });
   }
+
+  async findById(id: string): Promise<Delivery | null> {
+    return prisma.deliveries.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
+
+  async update({
+    id,
+    deliveryman_id,
+    item_name,
+    status,
+    user_id,
+  }: Delivery): Promise<Delivery> {
+    await prisma.deliveries.updateMany({
+      where: {
+        id,
+        deliveryman_id,
+      },
+      data: {
+        item_name,
+        status,
+        user_id,
+        deliveryman_id,
+      },
+    });
+
+    const delivery = await prisma.deliveries.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return delivery || ({} as Delivery);
+  }
 }
 
 export const prismaDeliveriesRepository = new PrismaDeliveriesRepository();

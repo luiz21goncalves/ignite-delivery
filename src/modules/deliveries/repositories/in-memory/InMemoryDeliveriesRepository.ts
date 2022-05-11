@@ -38,4 +38,28 @@ export class InMemoryDeliveriesRepository implements IDeliveriesRepository {
         delivery.status === 'received' && delivery.deliveryman_id === null,
     );
   }
+
+  async findById(id: string): Promise<Delivery | null> {
+    const delivery = this.deliveryes.find(
+      (findDelivery) => findDelivery.id === id,
+    );
+
+    return delivery || null;
+  }
+
+  async update(delivery: Delivery): Promise<Delivery> {
+    const deliveryIndex = this.deliveryes.findIndex(
+      (findDelivery) => findDelivery.id === delivery.id,
+    );
+
+    const updatedDelivery = {
+      ...delivery,
+      updated_at: new Date(),
+      status: 'finished',
+    };
+
+    this.deliveryes[deliveryIndex] = updatedDelivery;
+
+    return updatedDelivery;
+  }
 }
